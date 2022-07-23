@@ -1,6 +1,19 @@
 # Decetralized Insights
 Mono *repo for Decetralized Insights project.
 
+```bash
+├── apis
+│ ├── crm_api
+│ └── insights_api
+├── clients
+│ ├── crm_web
+│ ├── static_web
+│ └── widget_web
+└── services
+    ├── insights
+    └── organisations
+```
+
 
 *\*This is a temporary location for this project,
 which will be moved to an official repo sometime
