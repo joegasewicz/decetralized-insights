@@ -5,6 +5,7 @@ Mono *repo for Decetralized Insights project.
 ├── apis
 │ ├── crm_api
 │ └── insights_api
+│ └── web3_api
 ├── clients
 │ ├── crm_web
 │ ├── static_web
