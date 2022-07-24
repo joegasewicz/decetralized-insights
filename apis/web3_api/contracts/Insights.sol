@@ -1,4 +1,4 @@
-pragma solidity ^0.4.17;
+pragma solidity >=0.4.0 <0.9.0;
 //SPDX-License-Identifier: UNLICENSED
 
 contract Insights {
@@ -12,17 +12,17 @@ contract Insights {
     string public receive_date;
     string public release_date;
 
-    function Insights (
-        string _organisation,
-        string _recipient_name,
-        string _recipient_position,
-        string _recipient_organisation,
-        string _item_type,
+    constructor (
+        string memory _organisation,
+        string memory _recipient_name,
+        string memory _recipient_position,
+        string memory _recipient_organisation,
+        string memory _item_type,
         uint _item_id,
-        string _item_name,
-        string _receive_date,
-        string _release_date
-    ) public {
+        string memory _item_name,
+        string memory _receive_date,
+        string memory _release_date
+    ) {
         organisation = _organisation;
         recipient_name = _recipient_name;
         recipient_position = _recipient_position;
@@ -34,7 +34,7 @@ contract Insights {
         release_date = _release_date;
     }
 
-    function setReleaseDate(string new_release_date) public {
+    function setReleaseDate(string memory new_release_date) public {
         release_date = new_release_date;
     }
 
