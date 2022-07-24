@@ -1,4 +1,4 @@
-# Decetralized Insights
+# Decentralized Insights
 Mono *repo for Decentralized Insights project.
 
 ```bash
