@@ -1,5 +1,5 @@
 # Decetralized Insights
-Mono *repo for Decetralized Insights project.
+Mono *repo for Decentralized Insights project.
 
 ```bash
 ├── apis
