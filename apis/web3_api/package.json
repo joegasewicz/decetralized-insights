@@ -1,0 +1,17 @@
+{
+  "name": "web3_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "compile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "compile": "node compile.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "solc": "^0.4.17"
+  }
+}
