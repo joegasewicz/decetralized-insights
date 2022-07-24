@@ -4,10 +4,11 @@
   "description": "",
   "main": "compile.js",
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "scripts": {
-    "compile": "node compile.js"
+    "compile": "node compile.js",
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",

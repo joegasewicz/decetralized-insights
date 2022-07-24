@@ -23,4 +23,7 @@ var input  = {
 
 const output = JSON.parse(solc.compile(JSON.stringify(input)));
 
-module.exports = output["contracts"]["Insights.sol"].Insights;
+module.exports = {
+    bytecode: output.contracts["Insights.sol"].Insights.evm.bytecode.object,
+    abi: output.contracts["Insights.sol"].Insights.abi,
+}
