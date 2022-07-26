@@ -18,7 +18,7 @@ func main() {
 	app := gomek.New(gomek.Config{})
 	app.Route("/journeys").View(journeyViews.Get).Methods("GET")
 	app.Use(gomek.Logging)
-	app.Use(gomek.CORS)
+	//app.Use(gomek.CORS)
 	app.Listen(port)
 	app.Start()
 }
