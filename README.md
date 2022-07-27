@@ -7,7 +7,7 @@ Mono *repo for Decentralized Insights project.
 │ └── journeys_api
 │ └── web3_api
 ├── clients
-│ ├── crm_web
+│ ├── journey_web
 │ ├── static_web
 │ └── widget_web
 └── services
