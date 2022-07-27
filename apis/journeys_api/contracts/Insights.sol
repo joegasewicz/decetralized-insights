@@ -18,7 +18,7 @@ contract Insights {
         string memory _recipient_position,
         string memory _recipient_organisation,
         string memory _item_type,
-        uint _item_id,
+        uint8 _item_id,
         string memory _item_name,
         string memory _receive_date,
         string memory _release_date
