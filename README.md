@@ -4,8 +4,8 @@ Mono *repo for Decentralized Insights project.
 ```bash
 ├── apis
 │ ├── crm_api
+│ └── public_api
 │ └── journeys_api
-│ └── web3_api
 ├── clients
 │ ├── journey_web
 │ ├── static_web

@@ -1,2 +1,1 @@
-# Insights API
-Exposes insight endpoints returning JSON/
+# Web3 API
