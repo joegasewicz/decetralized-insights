@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  postgres1:
+    image: "postgres:latest"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: dinsights
+    volumes:
+      - ./dinsights_volume/:/var/lib/postgresql/data/
+
+volumes:
+  dinsights_volume:
