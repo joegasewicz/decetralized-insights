@@ -22,6 +22,7 @@ func main() {
 		BaseTemplateName: "layout",
 		BaseTemplates: []string{
 			"./templates/layout.gohtml",
+			"./templates/partials/sidebar.gohtml",
 		},
 	})
 
