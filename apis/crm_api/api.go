@@ -12,11 +12,19 @@ const (
 
 func main() {
 	// Views
-	journeyViews := views.Journey{}
+	//journeyViews := views.Journey{}
+	indexView := views.Index{}
 	log.Printf("Starting Server on %d\n", port)
 	// Gomek
-	app := gomek.New(gomek.Config{})
-	app.Route("/journeys").View(journeyViews.Get).Methods("GET")
+	app := gomek.New(gomek.Config{
+		BaseTemplateName: "layout",
+		BaseTemplates: []string{
+			"./templates/layout.gohtml",
+		},
+	})
+	app.Route("/").View(indexView.Get).Methods("GET").Templates(
+		"./templates/routes/index.gohtml",
+	)
 	app.Use(gomek.Logging)
 	//app.Use(gomek.CORS)
 	app.Listen(port)
