@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/joegasewicz/decetralized-insights/crm_api/models"
+	"github.com/joegasewicz/decetralized-insights/crm_api/utils"
 	"github.com/joegasewicz/decetralized-insights/crm_api/views"
 	"github.com/joegasewicz/gomek"
 	"log"
@@ -17,7 +19,19 @@ func main() {
 	indexView := views.Index{}
 	orgView := views.Organization{}
 	log.Printf("Starting Server on %d\n", port)
-
+	// Database
+	err := utils.DB.AutoMigrate(
+		&models.Organization{},
+		&models.ProductType{},
+		&models.Product{},
+		&models.AccountType{},
+		&models.Account{},
+		&models.Role{},
+		&models.User{},
+	)
+	if err != nil {
+		log.Fatalln("Failed to auto migrate: ", err)
+	}
 	// Gomek
 	app := gomek.New(gomek.Config{
 		BaseTemplateName: "layout",
