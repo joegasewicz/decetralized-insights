@@ -15,6 +15,7 @@ func main() {
 	// Views
 	//journeyViews := views.Journey{}
 	indexView := views.Index{}
+	orgView := views.Organization{}
 	log.Printf("Starting Server on %d\n", port)
 
 	// Gomek
@@ -33,6 +34,9 @@ func main() {
 	// Routes
 	app.Route("/").View(indexView.Get).Methods("GET").Templates(
 		"./templates/routes/index.gohtml",
+	)
+	app.Route("/organization").View(orgView.Get).Methods("GET").Templates(
+		"./templates/routes/organization.gohtml",
 	)
 	// Middleware
 	app.Use(gomek.Logging)

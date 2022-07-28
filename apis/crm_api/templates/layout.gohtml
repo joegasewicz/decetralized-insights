@@ -8,7 +8,9 @@
     <body>
         <div class="di-container">
             {{ template "sidebar" . }}
-            {{ template "content" . }}
+            <div class="di-inner">
+                {{ template "content" . }}
+            </div>
         </div>
     <script src="/dist/js/bundle.js"></script>
     </body>
