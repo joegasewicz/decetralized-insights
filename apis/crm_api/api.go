@@ -38,6 +38,7 @@ func main() {
 		BaseTemplates: []string{
 			"./templates/layout.gohtml",
 			"./templates/partials/sidebar.gohtml",
+			"./templates/partials/navbar.gohtml",
 		},
 	})
 
