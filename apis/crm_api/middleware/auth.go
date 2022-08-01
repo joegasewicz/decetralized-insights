@@ -11,7 +11,7 @@ var WhiteListRoutes = [][]string{
 		"/", "GET",
 	},
 	{
-		"/login", "POST",
+		"/", "POST",
 	},
 	{
 		"/logout", "POST",
@@ -42,8 +42,8 @@ func allowRoute(routes [][]string, currentRoute string, reqMethod string) bool {
 func Authorize(next http.Handler) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !allowRoute(WhiteListRoutes, r.RequestURI, r.Method) {
-			session, _ := utils.AppStore.Get(r, "bn_auth")
-			if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+			session, _ := utils.AppStore.Get(r, utils.APP_STORE_NAME)
+			if auth, ok := session.Values[utils.APP_STORE_VALUE_KEY].(bool); !ok || !auth {
 				http.Error(w, "Forbidden", http.StatusForbidden)
 				return
 			}
