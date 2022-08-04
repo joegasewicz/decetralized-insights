@@ -14,7 +14,7 @@ pragma solidity >=0.4.0 <0.9.0;
         address addr;
     }
 
-
+// Remix - [1, "activity type.", "description. ", [1, "name", "type.", "descrp..."], [1, "one..", 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2]]
     struct Activity {
         uint id;
         string act_type;
@@ -39,18 +39,34 @@ contract Journey {
 
     constructor(
         uint org_id,
-        string org_name
+        string memory org_name
     )  {
         organisation.id = org_id;
         organisation.name = org_name;
     }
 
-    // function createJourney() public virtual {
-    //     require(msg.sender == recipient.addr);
+    function removeActivity(uint activity_id) public virtual {
+        require(msg.sender == recipient.addr);
+        for (uint i; i < activities.length; i++) {
+            if (activities[i].id == activity_id) {
+                delete activities[i];
+                return;
+            }
+        }
+    }
 
-    // }
+    function updateActivity(uint activity_id, Activity memory activity) public virtual {
+        require(msg.sender == recipient.addr);
+        for (uint i; i < activities.length; i++) {
+            if (activities[i].id == activity_id) {
+                activities[i] = activity;
+                return;
+            }
+        }
+    }
 
-    function addNewActivityToJourney(
+
+    function addNewActivity (
         uint  _item_id,
         string memory _item_name,
         string memory _item_type,
