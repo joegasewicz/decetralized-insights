@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/joegasewicz/decetralized-insights/crm_api/middleware"
 	"github.com/joegasewicz/decetralized-insights/crm_api/models"
 	"github.com/joegasewicz/decetralized-insights/crm_api/utils"
 	"github.com/joegasewicz/decetralized-insights/crm_api/views"
@@ -16,7 +17,6 @@ const (
 func main() {
 	// Views
 	//journeyViews := views.Journey{}
-	indexView := views.Index{}
 	orgView := views.Organization{}
 	log.Printf("Starting Server on %d\n", port)
 	// Database
@@ -38,6 +38,7 @@ func main() {
 		BaseTemplates: []string{
 			"./templates/layout.gohtml",
 			"./templates/partials/sidebar.gohtml",
+			"./templates/partials/navbar.gohtml",
 		},
 	})
 
@@ -45,16 +46,22 @@ func main() {
 	distFiles := http.FileServer(http.Dir("dist"))
 	app.Handle("/dist/", http.StripPrefix("/dist/", distFiles))
 
-	// Routes
-	app.Route("/").View(indexView.Get).Methods("GET").Templates(
+	// Route ------------------------------------------------------------------
+
+	// '/index' Routes
+	app.Route("/").View(views.Index).Methods("GET", "POST").Templates(
 		"./templates/routes/index.gohtml",
 	)
+
+	// '/organization' Routes
 	app.Route("/organization").View(orgView.Get).Methods("GET").Templates(
 		"./templates/routes/organization.gohtml",
 	)
-	// Middleware
-	app.Use(gomek.Logging)
-	//app.Use(gomek.CORS)
+
+	// Middleware ------------------------------------------------------------------
+	//app.Use(gomek.Logging) // TODO fix gomek
+	//app.Use(gomek.CORS) // TODO fix gomek
+	app.Use(middleware.Authorize)
 
 	app.Listen(port)
 	app.Start()
