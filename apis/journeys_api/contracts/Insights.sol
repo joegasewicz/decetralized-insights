@@ -1,41 +1,69 @@
 pragma solidity >=0.4.0 <0.9.0;
 //SPDX-License-Identifier: UNLICENSED
 
-contract Insights {
-    string public organisation;
-    string public recipient_name;
-    string public recipient_position;
-    string public recipient_organisation;
-    string public item_type;
-    uint public item_id;
-    string public item_name;
-    string public receive_date;
-    string public release_date;
-
-    constructor (
-        string memory _organisation,
-        string memory _recipient_name,
-        string memory _recipient_position,
-        string memory _recipient_organisation,
-        string memory _item_type,
-        uint8 _item_id,
-        string memory _item_name,
-        string memory _receive_date,
-        string memory _release_date
-    ) {
-        organisation = _organisation;
-        recipient_name = _recipient_name;
-        recipient_position = _recipient_position;
-        recipient_organisation = _recipient_organisation;
-        item_type = _item_type;
-        item_id = _item_id;
-        item_name = _item_name;
-        receive_date = _receive_date;
-        release_date = _release_date;
+    struct Item {
+        uint id;
+        string name;
+        string it_type;
+        string description;
     }
 
-    function setReleaseDate(string memory new_release_date) public {
-        release_date = new_release_date;
+    struct Recipient {
+        uint id;
+        string name;
+    }
+
+
+    struct Activity {
+        uint id;
+        string act_type;
+        string description;
+        Item item;
+        Recipient recipient;
+    }
+
+    struct Organisation {
+        uint id;
+        string name;
+    }
+
+
+contract Journey {
+    Activity[] activities;
+    Organisation organisation;
+    Item newItem;
+    Recipient recipient;
+    Activity new_activity;
+
+    constructor(
+        uint  _item_id,
+        string memory _item_name,
+        string memory _item_type,
+        string memory _item_description,
+        uint _recipient_id,
+        string memory _recipient_name,
+        uint _activity_id,
+        string memory _activity_type,
+        string memory _activity_description
+    )  {
+        newItem.id = _item_id;
+        newItem.name = _item_name;
+        newItem.it_type = _item_type;
+        newItem.description = _item_description;
+
+        recipient.id = _recipient_id;
+        recipient.name = _recipient_name;
+
+        new_activity.id = _activity_id;
+        new_activity.item = newItem;
+        new_activity.act_type = _activity_type;
+        new_activity.description = _activity_description;
+        new_activity.recipient = recipient;
+        addNewActivity();
+    }
+
+    function addNewActivityToJourney() public virtual {
+        activities.push(new_activity);
     }
 
 }
