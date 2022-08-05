@@ -16,7 +16,7 @@ pragma solidity ^0.8;
         address addr;
     }
 
-// Remix - [1, "activity type.", "description. ", [1, "name", "type.", "descrp..."], [1, "one..", 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2]]
+// Remix - [1, "activity type.", "description. ", ["1", "name", "type.", "descrp..."], [1, "one..", 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2]]
     struct Activity {
         uint id;
         string act_type;
@@ -36,9 +36,9 @@ library MappingUtils {
 
     function keyExists(string memory key, mapping(string => Insight) storage map) public view returns (bool) {
         if (bytes(map[key].id).length > 0) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }
 
@@ -48,6 +48,7 @@ contract Organisation {
     string public name;
     Recipient[] public recipients;
     mapping(string => Insight) public insights;
+    address private admin_addr;
     address private recipient_addr;
 
     constructor(
@@ -59,6 +60,7 @@ contract Organisation {
         name = org_name;
         // only recipients with this account can add an activity
         recipient_addr = _recipient_addr;
+        admin_addr = msg.sender;
     }
 
     function updateActivity(uint activity_id, string memory item_id, Activity memory activity) public virtual {
@@ -88,15 +90,19 @@ contract Organisation {
         string memory it_type,
         string memory item_description
     ) public virtual {
-        require(msg.sender == recipient_addr);
+        require(msg.sender == admin_addr);
         Item memory item;
         item.id = item_id;
         item.name = item_name;
         item.it_type = it_type;
         item.description = item_description;
         // Check for duplicate values
-        insights[item_id].id = item_id;
-        insights[item_id].item = item;
+        if (MappingUtils.keyExists(item_id, insights)) {
+            revert("Item already exists");
+        } else {
+            insights[item_id].id = item_id;
+            insights[item_id].item = item;
+        }
     }
 
     function addNewActivity (
@@ -110,6 +116,7 @@ contract Organisation {
         string memory _activity_type,
         string memory _activity_description
     ) public virtual {
+        require(msg.sender == recipient_addr || msg.sender == admin_addr);
         Item memory newItem;
         Activity memory new_activity;
         Recipient memory recipient;
@@ -129,12 +136,12 @@ contract Organisation {
         new_activity.description = _activity_description;
         new_activity.recipient = recipient;
         // Check insight exists
-        if (MappingUtils.keyExists(_item_id, insights)) {
+        if (!MappingUtils.keyExists(_item_id, insights)) {
             // Add new insight to contract
             insights[_item_id].activities.push(new_activity);
-            return;
+        } else {
+            revert("Non found");
         }
-        revert("Non found");
     }
 
 }
