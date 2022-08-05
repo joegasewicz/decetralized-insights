@@ -25,6 +25,7 @@ pragma solidity ^0.8;
         Recipient recipient;
     }
 
+// Important: An insight's uniqueness is determined by it's item id
     struct Insight {
         string id;
         Activity[] activities;
@@ -33,7 +34,7 @@ pragma solidity ^0.8;
 
 library MappingUtils {
 
-    function keyExists(string memory key, mapping(string => Insight) storage map) private view returns (bool) {
+    function keyExists(string memory key, mapping(string => Insight) storage map) public view returns (bool) {
         if (bytes(map[key].id).length > 0) {
             return false;
         }
@@ -45,70 +46,58 @@ contract Organisation {
     using MappingUtils for *;
     uint public id;
     string public name;
-
     Recipient[] public recipients;
     mapping(string => Insight) public insights;
-    address admin_addr;
-    address[] user_addrs;
+    address private recipient_addr;
 
     constructor(
         uint org_id,
-        string memory org_name
+        string memory org_name,
+        address _recipient_addr
     )  {
         id = org_id;
         name = org_name;
+        // only recipients with this account can add an activity
+        recipient_addr = _recipient_addr;
     }
 
-    // function removeActivity(uint activity_id) public virtual {
-    //     require(msg.sender == recipient.addr);
-    //     for (uint i; i < activities.length; i++) {
-    //         if (activities[i].id == activity_id) {
-    //             delete activities[i];
-    //             return;
-    //         }
-    //     }
-    // }
+    function updateActivity(uint activity_id, string memory item_id, Activity memory activity) public virtual {
+        require(msg.sender == recipient_addr);
+        if (MappingUtils.keyExists(item_id, insights)) {
+            for (uint i; i < insights[item_id].activities.length; i++) {
+                if (insights[item_id].activities[i].id == activity_id) {
+                    insights[item_id].activities[i] = activity;
+                    return;
+                }
+            }
+            revert("Couldn't update entree");
+        }
+        revert("Insight Not found");
+    }
 
-    // function updateActivity(uint activity_id, Activity memory activity) public virtual {
-    //     require(msg.sender == recipient.addr);
-    //     for (uint i; i < activities.length; i++) {
-    //         if (activities[i].id == activity_id) {
-    //             activities[i] = activity;
-    //             return;
-    //         }
-    //     }
-    // }
-
-    // function createInsightID(uint item_id) private view returns (string memory) {
-    //     return string(abi.encodePacked(id, item_id));
-    // }
+    function getInsight(string memory item_id) view public returns (Insight memory) {
+        if (MappingUtils.keyExists(item_id, insights)) {
+            return insights[item_id];
+        }
+        revert("Not found");
+    }
 
     function addNewInsight(
         string memory item_id,
         string memory item_name,
         string memory it_type,
         string memory item_description
-    ) private {
-        // require(msg.sender == recipients[0].addr);
-
-        Insight memory insight;
-        Activity[] memory activities;
+    ) public virtual {
+        require(msg.sender == recipient_addr);
         Item memory item;
-
         item.id = item_id;
         item.name = item_name;
         item.it_type = it_type;
         item.description = item_description;
         // Check for duplicate values
-        insights[item.id] = insight;
-        insight.activities = activities;
-        insight.item = item;
+        insights[item_id].id = item_id;
+        insights[item_id].item = item;
     }
-
-    // function getInsight(uint insight_id) public view return (Insight memory) {
-
-    // }
-
 
     function addNewActivity (
         string memory  _item_id,
@@ -140,9 +129,12 @@ contract Organisation {
         new_activity.description = _activity_description;
         new_activity.recipient = recipient;
         // Check insight exists
-
-        // Add new insight to contract
-        insights[_item_id].activities.push(new_activity);
+        if (MappingUtils.keyExists(_item_id, insights)) {
+            // Add new insight to contract
+            insights[_item_id].activities.push(new_activity);
+            return;
+        }
+        revert("Non found");
     }
 
 }
