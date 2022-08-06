@@ -1,12 +1,10 @@
-import * as express from "express";
 import { Request, Response } from "express";
 
-const app = express();
-const port = 3000;
+import { app, port } from "./api";
+import { orgRoutes } from "./routes/organisations";
 
-app.get("/", (req: Request, res: Response) => {
-   res.send("Hello World!");
-});
+
+app.use("/organisation", orgRoutes);
 
 app.listen(port, () => {
     console.log(`Starting server on port: ${port}`);

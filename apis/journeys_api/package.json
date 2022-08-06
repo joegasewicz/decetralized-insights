@@ -9,7 +9,7 @@
   "scripts": {
     "compile": "node compile.js",
     "webpack": "webpack",
-    "test": "mocha",
+    "test:contracts": "mocha",
     "build:dev": "NODE_ENV=development webpack watch",
     "serve:dev": "NODE_ENV=development nodemon build/index.js"
   },

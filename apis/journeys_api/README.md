@@ -1,5 +1,5 @@
 # Insights API
-Exposes insight endpoints returning JSON/
+Exposes insight endpoints returning JSON
 
 ### Start servers for development
 ```bash
