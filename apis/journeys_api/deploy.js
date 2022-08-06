@@ -12,7 +12,11 @@ const web3 = new Web3(provider);
 const deploy = async () => {
     const accounts = await web3.eth.getAccounts();
     console.log("accounts: ", accounts[0]);
-    const args = ["Shell", "Joe & Haresh", "tester", "Gov", "Petroleum", 1, "Crude", "12/12/12", "13/13/13"];
+    const args = [
+        1,
+        "d insights",
+        accounts[1],
+    ];
     const result = await new web3.eth.Contract(compile.abi)
         .deploy({ data: compile.bytecode, arguments: args })
         .send({ gas: "1000000", from: accounts[0] });

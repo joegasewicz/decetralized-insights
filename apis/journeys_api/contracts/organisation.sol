@@ -32,21 +32,20 @@ pragma solidity ^0.8;
         Item item;
     }
 
-library MappingUtils {
-
-    function keyExists(string memory key, mapping(string => Insight) storage map) public view returns (bool) {
-        if (bytes(map[key].id).length > 0) {
-            return true;
-        }
-        return false;
-    }
-}
+//library MappingUtils {
+//
+//    function keyExists(string memory key, mapping(string => Insight) storage map) public view returns (bool) {
+//        if (bytes(map[key].id).length > 0) {
+//            return true;
+//        }
+//        return false;
+//    }
+//}
 
 contract Organisation {
-    using MappingUtils for *;
+    //    using MappingUtils for *;
     uint public id;
     string public name;
-    Recipient[] public recipients;
     mapping(string => Insight) public insights;
     address private admin_addr;
     address private recipient_addr;
@@ -63,9 +62,16 @@ contract Organisation {
         admin_addr = msg.sender;
     }
 
+    function keyExists(string memory key) public view returns (bool) {
+        if (bytes(insights[key].id).length > 0) {
+            return true;
+        }
+        return false;
+    }
+
     function updateActivity(uint activity_id, string memory item_id, Activity memory activity) public virtual {
         require(msg.sender == recipient_addr);
-        if (MappingUtils.keyExists(item_id, insights)) {
+        if (keyExists(item_id)) {
             for (uint i; i < insights[item_id].activities.length; i++) {
                 if (insights[item_id].activities[i].id == activity_id) {
                     insights[item_id].activities[i] = activity;
@@ -78,7 +84,7 @@ contract Organisation {
     }
 
     function getInsight(string memory item_id) view public returns (Insight memory) {
-        if (MappingUtils.keyExists(item_id, insights)) {
+        if (keyExists(item_id)) {
             return insights[item_id];
         }
         revert("Not found");
@@ -97,7 +103,7 @@ contract Organisation {
         item.it_type = it_type;
         item.description = item_description;
         // Check for duplicate values
-        if (MappingUtils.keyExists(item_id, insights)) {
+        if (keyExists(item_id)) {
             revert("Item already exists");
         } else {
             insights[item_id].id = item_id;
@@ -136,7 +142,7 @@ contract Organisation {
         new_activity.description = _activity_description;
         new_activity.recipient = recipient;
         // Check insight exists
-        if (!MappingUtils.keyExists(_item_id, insights)) {
+        if (!keyExists(_item_id)) {
             // Add new insight to contract
             insights[_item_id].activities.push(new_activity);
         } else {
