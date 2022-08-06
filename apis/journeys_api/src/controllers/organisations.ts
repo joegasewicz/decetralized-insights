@@ -1,38 +1,30 @@
-import {Request, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 import Web3 from "web3";
 import {OrgProvider} from "../services/provider";
 import Config from "../config";
 import {Contract} from "../services/contract";
 
-
-export const postNewOrganisation = async (req: Request, res: Response) => {
+export const postNewOrganisation = async (req: Request, res: Response, next: NextFunction) => {
     const config = new Config();
     const diProvider = new OrgProvider(config.SECRET_PHRASE, config.API_ENDPOINT);
     const provider = diProvider.getProvider();
     const web3 = new Web3(provider);
     try {
         const accounts = await web3.eth.getAccounts();
-
-        // get body
         const org_id = req.body.org_id;
         const org_name = req.body.org_name;
         const recipient_addr = req.body.recipient_addr;
 
-        if (!org_id || org_name || recipient_addr !== accounts[1]) {
+        if (!org_id || !org_name || recipient_addr !== accounts[1]) {
             res.status(400);
             res.json({
                 error: "Incorrect request values",
             });
-            req.next();
+            return;
         }
-
-        // compile latest contract
         const contract = new Contract();
-        contract.compile();
-
-
-        const args = [org_id, org_name, recipient_addr];
-
+        contract.getFromBin();
+        const args = [1, "d insights", accounts[1]];
         try {
             const result = await new web3.eth.Contract(contract.abi)
                 .deploy({ data: contract.bytecode, arguments: args })
@@ -41,25 +33,23 @@ export const postNewOrganisation = async (req: Request, res: Response) => {
 
             res.json({
                 data: {
-                    id: result,
+                    address: result.options.address,
                 },
             });
-            req.next();
+            return;
         } catch (err) {
             res.status(500);
             res.json({
                 error: err,
+                reason: "Couldn't create contract"
             });
-            req.next();
+            return;
         }
-
     } catch (err: any) {
         res.status(500);
         res.json({
             error: err,
         });
-        req.next();
+        return;
     }
-
-
 };

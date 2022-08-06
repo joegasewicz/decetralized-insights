@@ -4,7 +4,11 @@ export class Contract {
 
     _bytecode: any;
     _abi: any;
-    _output = byteData;
+    output: any
+
+    constructor() {
+        this.output = byteData;
+    }
 
     set bytecode(val: any) {
         this._bytecode = val;
@@ -22,9 +26,9 @@ export class Contract {
         return this._abi;
     }
 
-    public compile(): void {
-        this.abi = this._output.contracts["organisation.sol"].Organisation.abi;
-        this.bytecode = this._output.contracts["organisation.sol"].Organisation.evm.bytecode.object;
+    public getFromBin(): void {
+        this.abi = this.output.contracts["organisation.sol"].Organisation.abi;
+        this.bytecode = this.output.contracts["organisation.sol"].Organisation.evm.bytecode.object;
     }
 
 }
