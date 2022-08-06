@@ -19,7 +19,7 @@ const deploy = async () => {
     ];
     const result = await new web3.eth.Contract(compile.abi)
         .deploy({ data: compile.bytecode, arguments: args })
-        .send({ gas: "1000000", from: accounts[0] });
+        .send({ gas: "3000000", from: accounts[0] });
     console.log("Contract deployed to: ", result.options.address);
     provider.engine.stop(); // prevent hanging deploy
 };

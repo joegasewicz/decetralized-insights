@@ -11,7 +11,8 @@
     "webpack": "webpack",
     "test:contracts": "mocha",
     "build:dev": "NODE_ENV=development webpack watch",
-    "serve:dev": "NODE_ENV=development nodemon build/index.js"
+    "serve:dev": "NODE_ENV=development nodemon build/index.js",
+    "deploy": "node deploy.js"
   },
   "author": "",
   "license": "ISC",
