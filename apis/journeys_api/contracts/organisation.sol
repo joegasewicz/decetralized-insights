@@ -1,10 +1,11 @@
 pragma solidity ^0.8;
+//import "hardhat/console.sol";
 //SPDX-License-Identifier: UNLICENSED
 
 // All ids must be of type string
 
     struct Item {
-        string id;
+        uint id;
         string name;
         string it_type;
         string description;
@@ -27,7 +28,6 @@ pragma solidity ^0.8;
 
 // Important: An insight's uniqueness is determined by it's item id
     struct Insight {
-        string id;
         Activity[] activities;
         Item item;
     }
@@ -46,7 +46,8 @@ contract Organisation {
     //    using MappingUtils for *;
     uint public id;
     string public name;
-    mapping(string => Insight) public insights;
+    Recipient[] public recipients;
+    mapping(uint => Insight) public insights;
     address private admin_addr;
     address private recipient_addr;
 
@@ -62,14 +63,14 @@ contract Organisation {
         admin_addr = msg.sender;
     }
 
-    function keyExists(string memory key) public view returns (bool) {
-        if (bytes(insights[key].id).length > 0) {
+    function keyExists(uint key) public view returns (bool) {
+        if (insights[key].item.id > 0) {
             return true;
         }
         return false;
     }
 
-    function updateActivity(uint activity_id, string memory item_id, Activity memory activity) public virtual {
+    function updateActivity(uint activity_id, uint item_id, Activity memory activity) public virtual {
         require(msg.sender == recipient_addr);
         if (keyExists(item_id)) {
             for (uint i; i < insights[item_id].activities.length; i++) {
@@ -83,7 +84,7 @@ contract Organisation {
         revert("Insight Not found");
     }
 
-    function getInsight(string memory item_id) view public returns (Insight memory) {
+    function getInsight(uint item_id) view public returns (Insight memory) {
         if (keyExists(item_id)) {
             return insights[item_id];
         }
@@ -91,7 +92,7 @@ contract Organisation {
     }
 
     function addNewInsight(
-        string memory item_id,
+        uint item_id,
         string memory item_name,
         string memory it_type,
         string memory item_description
@@ -103,16 +104,16 @@ contract Organisation {
         item.it_type = it_type;
         item.description = item_description;
         // Check for duplicate values
-        if (keyExists(item_id)) {
+        if (insights[item_id].item.id == item_id) {
             revert("Item already exists");
         } else {
-            insights[item_id].id = item_id;
             insights[item_id].item = item;
         }
     }
 
+    // TODO add geolocation
     function addNewActivity (
-        string memory  _item_id,
+        uint  _item_id,
         string memory _item_name,
         string memory _item_type,
         string memory _item_description,
@@ -142,11 +143,11 @@ contract Organisation {
         new_activity.description = _activity_description;
         new_activity.recipient = recipient;
         // Check insight exists
-        if (!keyExists(_item_id)) {
+        if (insights[_item_id].item.id == _item_id) {
             // Add new insight to contract
             insights[_item_id].activities.push(new_activity);
         } else {
-            revert("Non found");
+            revert("Insight not found");
         }
     }
 
