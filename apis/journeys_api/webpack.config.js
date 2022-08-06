@@ -1,6 +1,7 @@
 const path = require("path");
 const nodeExternals = require('webpack-node-externals');
 const WebpackShellPlugin = require('webpack-shell-plugin-next');
+const webpack = require("webpack");
 
 const { NODE_ENV } = process.env;
 
@@ -13,7 +14,7 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 use: "ts-loader",
-                exclude: /node_modules/
+                exclude: [/node_modules/, /contracts/]
             },
         ],
     },
@@ -25,7 +26,7 @@ module.exports = {
         }
     },
     resolve: {
-        extensions: [".tsx", ".ts", ".js"]
+        extensions: [".tsx", ".ts", ".js", ".json"]
     },
     output: {
         filename: "index.js",
@@ -36,5 +37,6 @@ module.exports = {
         new WebpackShellPlugin({
             onBuildEnd: ['npm run serve:dev']
         }),
-    ]
+    ],
+
 };

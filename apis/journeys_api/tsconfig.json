@@ -7,9 +7,11 @@
     "sourceMap": true,
     "allowJs": true,
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "./contracts"
   ]
 }
