@@ -6,13 +6,15 @@
          <link rel="stylesheet" href="">
      </head>
     <body>
-        {{ template "navbar" }}
-        <div class="di-container">
-            {{ template "sidebar" . }}
-            <div class="di-inner">
+    <div class="di-container">
+        {{ template "sidebar" . }}
+        <div class="di-inner">
+            {{ template "navbar" }}
+            <div class="di-content">
                 {{ template "content" . }}
             </div>
         </div>
+    </div>
     <script src="/dist/js/bundle.js"></script>
     </body>
  </html>

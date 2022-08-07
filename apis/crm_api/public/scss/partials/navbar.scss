@@ -1,3 +1,12 @@
 .navbar {
-
+  height: $navbar-height;
+  width: 100%;
+  background-color: $black-pearl;
+  color: $light-aqua-green;
+  a {
+    color: $light-aqua-green;
+    &:active, &:hover {
+        color: $dull-green;
+    }
+  }
 }

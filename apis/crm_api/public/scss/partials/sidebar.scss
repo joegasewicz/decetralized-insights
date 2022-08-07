@@ -1,9 +1,25 @@
 .sidebar {
-  background-color: #2f3640;
+  background-color: $black-pearl;
   padding: 1rem;
-  min-width: 280px;
+  min-width: $side-bar-width;
   height: 100vh;
+  color: $light-aqua-green;
+  a {
+    color: $light-aqua-green!important;
+  }
   .text-bg-dark {
-    background-color: #2f3640!important;
+    background-color: $black-pearl!important;
+  }
+  &__logo {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    svg {
+      width: 130px;
+      height: auto;
+    }
+  }
+  hr {
+    color: $aqua;
   }
 }

@@ -10,9 +10,10 @@ import (
 
 func Index(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 	if r.Method == "GET" {
-		session, _ := utils.AppStore.Get(r, utils.APP_STORE_NAME)
 		templateData := make(gomek.Data)
+		session, _ := utils.AppStore.Get(r, utils.APP_STORE_NAME)
 		templateData["authenticated"] = session.Values[utils.APP_STORE_VALUE_KEY]
+		*d = templateData
 		return
 	}
 	if r.Method == "POST" {
