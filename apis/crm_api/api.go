@@ -42,7 +42,7 @@ func main() {
 		},
 	})
 
-	// Static ifles
+	// Static files
 	distFiles := http.FileServer(http.Dir("dist"))
 	app.Handle("/dist/", http.StripPrefix("/dist/", distFiles))
 
@@ -50,6 +50,11 @@ func main() {
 
 	// '/index' Routes
 	app.Route("/").View(views.Index).Methods("GET", "POST").Templates(
+		"./templates/routes/index.gohtml",
+	)
+
+	// Logout
+	app.Route("/logout").View(views.Logout).Methods("POST").Templates(
 		"./templates/routes/index.gohtml",
 	)
 

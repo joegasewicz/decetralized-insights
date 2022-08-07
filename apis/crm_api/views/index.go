@@ -10,6 +10,9 @@ import (
 
 func Index(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 	if r.Method == "GET" {
+		session, _ := utils.AppStore.Get(r, utils.APP_STORE_NAME)
+		templateData := make(gomek.Data)
+		templateData["authenticated"] = session.Values[utils.APP_STORE_VALUE_KEY]
 		return
 	}
 	if r.Method == "POST" {
@@ -37,7 +40,6 @@ func Index(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 			log.Printf("Error saving sesions %e", err)
 			http.Redirect(w, r, "/organization", http.StatusInternalServerError)
 		}
-
 		http.Redirect(w, r, "/organization", http.StatusSeeOther)
 		return
 	}

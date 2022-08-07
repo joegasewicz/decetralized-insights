@@ -11,10 +11,11 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    {{ .authenticated }}
-                    <button class="btn btn-outline-danger" type="submit">Logout</button>
-                </form>
+                {{  if .authenticated }}
+                    <form action="/logout" method="POST">
+                        <button class="btn btn-outline-danger" type="submit">Logout</button>
+                    </form>
+                {{ end }}
             </div>
         </div>
     </nav>
