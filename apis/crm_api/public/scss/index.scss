@@ -3,10 +3,14 @@
 @import "variables.scss";
 @import "grid.scss";
 
+// resets
+@import "./resets";
+
 @import "./layout.scss";
 // Partials
 @import "partials/sidebar.scss";
 @import "partials/navbar.scss";
 // Routes
-@import "./routes/index.scss";
+@import "./routes/login.scss";
 @import "./routes/organization.scss";
+@import "./routes/home.scss";

@@ -11,7 +11,10 @@ var WhiteListRoutes = [][]string{
 		"/", "GET",
 	},
 	{
-		"/", "POST",
+		"/login", "GET",
+	},
+	{
+		"/login", "POST",
 	},
 	{
 		"/logout", "POST",

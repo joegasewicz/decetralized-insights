@@ -44,18 +44,25 @@ func main() {
 
 	// Static files
 	distFiles := http.FileServer(http.Dir("dist"))
+	publicImgs := http.FileServer(http.Dir("public/imgs"))
 	app.Handle("/dist/", http.StripPrefix("/dist/", distFiles))
+	app.Handle("/public/imgs/", http.StripPrefix("/public/imgs/", publicImgs))
 
 	// Route ------------------------------------------------------------------
 
-	// '/index' Routes
-	app.Route("/").View(views.Index).Methods("GET", "POST").Templates(
-		"./templates/routes/index.gohtml",
+	// '/' Routes
+	app.Route("/").View(views.GetHome).Methods("GET").Templates(
+		"./templates/routes/home.gohtml",
+	)
+
+	// '/login' Routes
+	app.Route("/login").View(views.Index).Methods("GET", "POST").Templates(
+		"./templates/routes/login.gohtml",
 	)
 
 	// Logout
 	app.Route("/logout").View(views.Logout).Methods("POST").Templates(
-		"./templates/routes/index.gohtml",
+		"./templates/routes/login.gohtml",
 	)
 
 	// '/organization' Routes

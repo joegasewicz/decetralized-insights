@@ -7,9 +7,11 @@
      </head>
     <body>
     <div class="di-container">
-        {{ template "sidebar" . }}
+        {{ if .authenticated }}
+            {{ template "sidebar" . }}
+        {{ end }}
         <div class="di-inner">
-            {{ template "navbar" }}
+            {{ template "navbar" . }}
             <div class="di-content">
                 {{ template "content" . }}
             </div>

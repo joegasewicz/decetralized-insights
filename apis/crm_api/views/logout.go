@@ -14,5 +14,5 @@ func Logout(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 	if err != nil {
 		log.Printf("Error trying to log user out %e\n", err)
 	}
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }

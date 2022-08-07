@@ -23,16 +23,16 @@ func Index(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 		email := r.FormValue("email")
 		password := r.FormValue("password")
 		if email == "" || password == "" {
-			http.Redirect(w, r, "/", http.StatusUnauthorized)
+			http.Redirect(w, r, "/login", http.StatusUnauthorized)
 		}
 
 		var user models.User
 		result := utils.DB.Where("email = ?", email).First(&user)
 		if result.RowsAffected == 0 {
-			http.Redirect(w, r, "/", http.StatusForbidden)
+			http.Redirect(w, r, "/login", http.StatusForbidden)
 		}
 		if user.Password != password {
-			http.Redirect(w, r, "/", http.StatusForbidden)
+			http.Redirect(w, r, "/login", http.StatusForbidden)
 		}
 		session.Values[utils.APP_STORE_VALUE_KEY] = true
 		session.Values["user_id"] = user.ID
