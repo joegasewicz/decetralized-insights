@@ -70,6 +70,11 @@ func main() {
 		"./templates/routes/organization.gohtml",
 	)
 
+	// '/products' Routes
+	app.Route("/products").View(views.GetProducts).Methods("GET").Templates(
+		"./templates/routes/products.gohtml",
+	)
+
 	// Middleware ------------------------------------------------------------------
 	//app.Use(gomek.Logging) // TODO fix gomek
 	//app.Use(gomek.CORS) // TODO fix gomek

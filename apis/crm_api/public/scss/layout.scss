@@ -1,12 +1,13 @@
 .di-container {
-
+  height: 100%;
   display: flex;
   color: $light-aqua-green;
   .di-inner {
     width: 100%;
-    height: 100%;
+
     background-color: $baltic-sea;
     .di-content {
+
       table {
         color: $light-aqua-green;
       }
