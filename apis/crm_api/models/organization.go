@@ -4,6 +4,7 @@ import "gorm.io/gorm"
 
 type Organization struct {
 	gorm.Model
-	name     string `gorm:"unique"`
+	Name     string `gorm:"unique"`
+	Users    []User
 	Products []Product
 }
