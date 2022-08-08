@@ -27,15 +27,23 @@
             <hr />
             <ul class="nav nav-pills flex-column mb-auto">
                 <li>
-                    <a href="/organization" class="nav-link text-white">
+                    <a href="/organization" class="nav-link text-white {{ call .IsActive .RequestURI "/organization" }}">
                         <svg class="bi pe-none me-2" width="16" height="16">
 
                         </svg>
                         My Organization
                     </a>
+                    {{ if or (eq .RequestURI "/organization") (eq .RequestURI "/organization/create") }}
+                        <ul class="sidebar__nested-ul">
+                            <li class="nav-item">
+                                <a class="nav-link {{ call .IsActive .RequestURI "/organization/create" }}" aria-current="page" href="/organization/create">Create</a>
+                            </li>
+                        </ul>
+                    {{ end }}
+
                 </li>
                 <li>
-                    <a href="/products" class="nav-link text-white">
+                    <a href="/products" class="nav-link text-white {{ call .IsActive .RequestURI "/products" }}">
                         <svg class="bi pe-none me-2" width="16" height="16">
 
                         </svg>
@@ -43,15 +51,16 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/insights" class="nav-link text-white">
+                    <a href="/insights" class="nav-link text-white {{ call .IsActive .RequestURI "/insights" }}">
                         <svg class="bi pe-none me-2" width="16" height="16">
 
                         </svg>
                         Insights
                     </a>
+
                 </li>
                 <li>
-                    <a href="/users" class="nav-link text-white">
+                    <a href="/users" class="nav-link text-white {{ call .IsActive .RequestURI "/users" }}">
                         <svg class="bi pe-none me-2" width="16" height="16">
 
                         </svg>

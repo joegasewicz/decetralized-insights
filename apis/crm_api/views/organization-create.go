@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func GetProducts(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
+func GetOrganizationCreate(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 	if r.Method == "GET" {
 		templateData := make(gomek.Data)
 		session, _ := utils.AppStore.Get(r, utils.APP_STORE_NAME)
@@ -14,5 +14,7 @@ func GetProducts(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 		templateData["RequestURI"] = r.RequestURI
 		templateData["IsActive"] = utils.IsActive
 		*d = templateData
+		return
 	}
+
 }

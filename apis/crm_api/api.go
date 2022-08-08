@@ -112,6 +112,11 @@ func main() {
 		"./templates/routes/organization.gohtml",
 	)
 
+	// '/organization/create' Routes
+	app.Route("/organization/create").View(views.GetOrganizationCreate).Methods("GET").Templates(
+		"./templates/routes/organization-create.gohtml",
+	)
+
 	// '/products' Routes
 	app.Route("/products").View(views.GetProducts).Methods("GET").Templates(
 		"./templates/routes/products.gohtml",

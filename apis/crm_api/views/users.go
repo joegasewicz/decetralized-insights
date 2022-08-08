@@ -27,6 +27,9 @@ func GetUsers(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 		}
 		userRole := models.GetUserRole(&user)
 		templateData["UserRole"] = userRole
+
+		templateData["RequestURI"] = r.RequestURI
+		templateData["IsActive"] = utils.IsActive
 		*d = templateData
 		return
 	}
