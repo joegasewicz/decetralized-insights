@@ -2,26 +2,103 @@
 <div class="organization">
     <div class="container">
         <h1 class="text-center">Organization</h1>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Account ID</th>
-                <th scope="col">Journeys Used</th>
-                <th scope="col">Journeys Left</th>
-                <th scope="col">Total Cost</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>1232sdfsdf467543ds</td>
-                <td>1000</td>
-                <td>2000</td>
-                <td>£3000.00</td>
-            </tr>
-            </tbody>
-        </table>
+
+        <div class="container">
+            <h2>Organizations</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Account ID</th>
+                    <th scope="col">Journeys Used</th>
+                    <th scope="col">Journeys Left</th>
+                    <th scope="col">Total Cost</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>1232sdfsdf467543ds</td>
+                    <td>1000</td>
+                    <td>2000</td>
+                    <td>£3000.00</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <h2>Create New Organization</h2>
+
+
+                <div class="di-form">
+                    <div class="card text-bg-secondary mb-3">
+                        <div class="card-header">
+                            <h2 class=" text-center">New Organization</h2>
+                        </div>
+                        <div class="card-body">
+                            <form action="/login" method="POST">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Name</label>
+                                            <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Branch</label>
+                                            <input type="text" name="branch" class="form-control" id="exampleInputPassword1">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Sector</label>
+                                            <select class="form-select">
+                                                <option></option>
+                                                <option>Engineering</option>
+                                                <option>Consumer</option>
+                                                <option>Retail</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Contact (email)</label>
+                                            <input type="email" name="password" class="form-control" id="exampleInputPassword1">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Tel</label>
+                                            <input type="email" name="password" class="form-control" id="exampleInputPassword1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Bank Name</label>
+                                            <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Sort Code</label>
+                                            <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Account No.</label>
+                                            <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlTextarea1" class="form-label">Comments</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn btn-outline-info btn-lg">Create</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
     </div>
 </div>
 {{ end }}

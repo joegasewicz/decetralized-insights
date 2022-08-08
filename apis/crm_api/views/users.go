@@ -19,12 +19,14 @@ func GetUsers(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 
 		// Models
 		userID := fmt.Sprintf("%v", session.Values["user_id"])
-		result := utils.DB.First(&user, "id = ?", userID)
-		if result.RowsAffected == 0 {
-			log.Println("User doesn't exist")
+		err := models.GetUserByID(&user, userID)
+		if err != nil {
+			log.Println(err)
 			http.Redirect(w, r, "/", http.StatusForbidden)
 			return
 		}
+		userRole := models.GetUserRole(&user)
+		templateData["UserRole"] = userRole
 		*d = templateData
 		return
 	}
