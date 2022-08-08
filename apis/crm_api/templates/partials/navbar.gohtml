@@ -1,5 +1,8 @@
 {{ define "navbar" }}
     <nav class="navbar navbar-expand-lg">
+            {{ if eq .Page "Home" }}
+                <a href="/login" class="btn btn-outline-info">Login</a>
+            {{ end }}
             {{ if .authenticated }}
                 <form action="/logout" method="POST">
                     <button class="btn btn-outline-info" type="submit">Logout</button>

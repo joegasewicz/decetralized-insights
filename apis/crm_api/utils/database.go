@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-var Dsn = "host=localhost user=admin password=admin dbname=dinsights port=5432 sslmode=disable"
+var Dsn = "host=localhost user=admin password=admin dbname=dinsights port=5433 sslmode=disable"
 
 func createDB() *gorm.DB {
 	db, err := gorm.Open(postgres.Open(Dsn), &gorm.Config{})

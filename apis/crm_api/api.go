@@ -75,6 +75,16 @@ func main() {
 		"./templates/routes/products.gohtml",
 	)
 
+	// '/insights' Routes
+	app.Route("/insights").View(views.GetInsights).Methods("GET").Templates(
+		"./templates/routes/insights.gohtml",
+	)
+
+	// '/users' Routes
+	app.Route("/users").View(views.GetUsers).Methods("GET").Templates(
+		"./templates/routes/users.gohtml",
+	)
+
 	// Middleware ------------------------------------------------------------------
 	//app.Use(gomek.Logging) // TODO fix gomek
 	//app.Use(gomek.CORS) // TODO fix gomek
