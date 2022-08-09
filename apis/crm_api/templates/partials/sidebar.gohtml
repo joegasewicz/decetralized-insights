@@ -66,6 +66,20 @@
                         </svg>
                         Users
                     </a>
+                    {{ if or (eq .RequestURI "/users") (eq .RequestURI "/users/admins") (eq .RequestURI "/users/recipients") }}
+                        <ul class="sidebar__nested-ul">
+                            <li class="nav-item">
+                                <a class="nav-link {{ call .IsActive .RequestURI "/users/admins" }}" aria-current="page" href="/users/admins">Admins</a>
+                            </li>
+                        </ul>
+                    {{ end }}
+                    {{ if or (eq .RequestURI "/users") (eq .RequestURI "/users/admins") (eq .RequestURI "/users/recipients") }}
+                    <ul class="sidebar__nested-ul">
+                        <li class="nav-item">
+                            <a class="nav-link {{ call .IsActive .RequestURI "/users/recipients" }}" aria-current="page" href="/users/recipients">Recipients</a>
+                        </li>
+                    </ul>
+                    {{ end }}
                 </li>
             </ul>
 

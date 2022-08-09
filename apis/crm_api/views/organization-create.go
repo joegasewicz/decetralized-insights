@@ -11,10 +11,7 @@ import (
 
 func OrganizationCreate(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 	templateData := make(gomek.Data)
-	session, _ := utils.AppStore.Get(r, utils.APP_STORE_NAME)
-	templateData["authenticated"] = session.Values[utils.APP_STORE_VALUE_KEY]
-	templateData["RequestURI"] = r.RequestURI
-	templateData["IsActive"] = utils.IsActive
+	utils.BaseTemplateModel(r, &templateData)
 	if r.Method == "GET" {
 		*d = templateData
 		return

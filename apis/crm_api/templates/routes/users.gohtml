@@ -5,64 +5,31 @@
     {{ if eq .UserRole "super" }}
         <hr>
         <h2 class="text-center">Admins</h2>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="di-form">
-                    <div class="card text-bg-secondary mb-3">
-                        <div class="card-header">
-                            <h2 class=" text-center">Login</h2>
-                        </div>
-                        <div class="card-body">
-                            <form action="/login" method="POST">
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-                                </div>
-                                <button type="submit" class="btn btn btn-outline-info btn-lg">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3"></div>
-        </div>
+
         <div class="container">
             <div class="row">
-                <h4 class="text-center">All admins</h4>
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <table class="table">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Fullname</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Organisation</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        {{ range .Users }}
+                            <tr>
+                                <th scope="row">{{ .ID }}</th>
+                                <td>{{ .Fullname }}</td>
+                                <td>{{ .Email }}</td>
+                                <td>{{ .Role.Name }}</td>
+                                <td>{{ .Organization.Name }}</td>
+                            </tr>
+                        {{ end }}
                         </tbody>
                     </table>
                 </div>
