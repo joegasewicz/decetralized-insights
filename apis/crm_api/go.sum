@@ -70,6 +70,8 @@ github.com/jinzhu/inflection v1.0.0/go.mod h1:h+uFLlag+Qp1Va5pdKtLDYj+kHp5pxUVkr
 github.com/jinzhu/now v1.1.4/go.mod h1:d3SSVoowX0Lcu0IBviAWJpolVfI5UJVZZ7cO71lE/z8=
 github.com/jinzhu/now v1.1.5 h1:/o9tlHleP7gOFmsnYNz3RGnqzefHA47wQpKrrdTIwXQ=
 github.com/jinzhu/now v1.1.5/go.mod h1:d3SSVoowX0Lcu0IBviAWJpolVfI5UJVZZ7cO71lE/z8=
+github.com/joegasewicz/form-validator v1.2.0 h1:AAVPOx10+MgnXa81vBgqL0SK5g9WDAg3owt/kyAfkE8=
+github.com/joegasewicz/form-validator v1.2.0/go.mod h1:knEpgx5CBD7PZNhAHNH5o8t8d7897Btis683H7EI1fA=
 github.com/joegasewicz/gomek v0.0.8 h1:eGI3q23VZYRk2MZhL8ZKUDRIvzSKna6WgYGbxLD7GI8=
 github.com/joegasewicz/gomek v0.0.8/go.mod h1:yEaRKKiWmnvzyd9JRNWrjfgyQDscxM/XSB6jrX6NrUo=
 github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+oQHNcck=

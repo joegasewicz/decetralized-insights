@@ -32,6 +32,48 @@ func main() {
 	if err != nil {
 		log.Fatalln("Failed to auto migrate: ", err)
 	}
+	// Seed database
+	log.Println("Seeding database")
+	org := models.Organization{
+		Name: "dinsights",
+	}
+	orgResult := utils.DB.Create(&org)
+	if orgResult.RowsAffected != 0 {
+		log.Println("Seeded organisation")
+	}
+	roles := []models.Role{
+		{
+			Name: "super",
+		},
+		{
+			Name: "admin",
+		},
+		{
+			Name: "recipient",
+		},
+	}
+	utils.DB.Create(&roles)
+	var superRole models.Role
+	models.GetRoleByName("super", &superRole)
+	superUsers := []models.User{
+		{
+			Email:          "pymailio@gmail.com",
+			Password:       "wizard",
+			RoleID:         uint(superRole.ID),
+			OrganizationID: org.ID,
+		},
+		{
+			Email:          "haresh@email.com",
+			Password:       "wizard",
+			RoleID:         uint(superRole.ID),
+			OrganizationID: org.ID,
+		},
+	}
+	super := utils.DB.Create(&superUsers)
+	if super.RowsAffected != 0 {
+		log.Println("Seeded new super user")
+	}
+
 	// Gomek
 	app := gomek.New(gomek.Config{
 		BaseTemplateName: "layout",
@@ -68,6 +110,11 @@ func main() {
 	// '/organization' Routes
 	app.Route("/organization").View(orgView.Get).Methods("GET").Templates(
 		"./templates/routes/organization.gohtml",
+	)
+
+	// '/organization/create' Routes
+	app.Route("/organization/create").View(views.OrganizationCreate).Methods("GET", "POST").Templates(
+		"./templates/routes/organization-create.gohtml",
 	)
 
 	// '/products' Routes

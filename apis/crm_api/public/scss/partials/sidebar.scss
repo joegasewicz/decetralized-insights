@@ -22,4 +22,17 @@
   hr {
     color: $aqua;
   }
+  ul {
+    li {
+      .active {
+        border: 1px $light-aqua-green solid!important;
+        background-color: $light-aqua-green!important;
+        color: $black-pearl!important;
+      }
+    }
+  }
+  &__nested-ul {
+    margin-left: 29px;
+    list-style-type: none;
+  } // &__nested-ul
 }
