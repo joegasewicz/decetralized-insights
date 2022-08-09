@@ -11,8 +11,11 @@ type User struct {
 	gorm.Model
 	Email          string `gorm:"unique"`
 	Password       string
+	Fullname       string
 	RoleID         uint
+	Role           Role
 	OrganizationID uint
+	Organization   Organization
 }
 
 func GetUserRole(u *User) string {

@@ -132,6 +132,16 @@ func main() {
 		"./templates/routes/users.gohtml",
 	)
 
+	// '/users/admins' Routes
+	app.Route("/users/admins").View(views.UsersAdmins).Methods("GET", "POST").Templates(
+		"./templates/routes/users-admins.gohtml",
+	)
+
+	// '/users/recipients' Routes
+	app.Route("/users/recipients").View(views.UserRecipients).Methods("GET").Templates(
+		"./templates/routes/users-recipients.gohtml",
+	)
+
 	// Middleware ------------------------------------------------------------------
 	//app.Use(gomek.Logging) // TODO fix gomek
 	//app.Use(gomek.CORS) // TODO fix gomek
