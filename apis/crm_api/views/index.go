@@ -40,6 +40,7 @@ func Index(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 		if err != nil {
 			log.Printf("Error saving sesions %e", err)
 			http.Redirect(w, r, "/organization", http.StatusInternalServerError)
+			return
 		}
 		http.Redirect(w, r, "/organization", http.StatusSeeOther)
 		return

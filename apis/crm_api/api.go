@@ -113,7 +113,7 @@ func main() {
 	)
 
 	// '/organization/create' Routes
-	app.Route("/organization/create").View(views.GetOrganizationCreate).Methods("GET").Templates(
+	app.Route("/organization/create").View(views.OrganizationCreate).Methods("GET", "POST").Templates(
 		"./templates/routes/organization-create.gohtml",
 	)
 

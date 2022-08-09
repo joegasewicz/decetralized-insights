@@ -2,14 +2,13 @@
     <div class="create-organization">
         <div class="container">
             <h1 class="text-center">Create New Organization</h1>
-
             <div class="di-form">
                 <div class="card text-bg-secondary mb-3">
                     <div class="card-header">
                         <h2 class=" text-center">New Organization</h2>
                     </div>
                     <div class="card-body">
-                        <form action="/login" method="POST">
+                        <form action="/organization/create" method="POST">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
@@ -22,45 +21,46 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Sector</label>
-                                        <select class="form-select">
-                                            <option></option>
-                                            <option>Engineering</option>
-                                            <option>Consumer</option>
-                                            <option>Retail</option>
+                                        <select name="sector" class="form-select">
+                                            <option value=""></option>
+                                            <option value="fossil_fuels">Fossil Fuels</option>
+                                            <option value="cosmetics">Cosmetics</option>
+                                            <option value="jewellery">Jewellery</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Contact (email)</label>
-                                        <input type="email" name="password" class="form-control" id="exampleInputPassword1">
+                                        <input type="email" name="contact_email" class="form-control" id="exampleInputPassword1">
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Tel</label>
-                                        <input type="email" name="password" class="form-control" id="exampleInputPassword1">
+                                        <label for="exampleInputPassword1" class="form-label">Contact Tel</label>
+                                        <input type="tel" name="phone_number" class="form-control" id="exampleInputPassword1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Contact Fullname</label>
+                                        <input type="text" name="contact_fullname" class="form-control" id="exampleInputPassword1">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Bank Name</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        <input type="text" name="bank_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Sort Code</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        <input type="text" name="sort_code" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                     </div>
-
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Account No.</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        <input type="text" name="account_no" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                     </div>
-
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Comments</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                                        <textarea name="comments" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
                                     </div>
                                     <button type="submit" class="btn btn btn-outline-info btn-lg">Create</button>
                                 </div>
-
                             </div>
                         </form>
                     </div>

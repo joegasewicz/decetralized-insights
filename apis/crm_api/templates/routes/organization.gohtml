@@ -9,20 +9,24 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Account ID</th>
-                    <th scope="col">Journeys Used</th>
-                    <th scope="col">Journeys Left</th>
-                    <th scope="col">Total Cost</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Sector</th>
+                    <th scope="col">Contant</th>
+                    <th scope="col">Email</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>1232sdfsdf467543ds</td>
-                    <td>1000</td>
-                    <td>2000</td>
-                    <td>£3000.00</td>
-                </tr>
+                {{ range .Orgs }}
+                    <tr>
+                        <th scope="row">{{ .ID }}</th>
+                        <td>{{ .Name }}</td>
+                        <td>{{ .Branch }}</td>
+                        <td>{{ .Sector }}</td>
+                        <td>{{ .ContactFullname }}</td>
+                        <td>{{ .ContactEmail }}</td>
+                    </tr>
+                {{ end }}
                 </tbody>
             </table>
         </div>
