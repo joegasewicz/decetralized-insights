@@ -49,6 +49,13 @@
                         </svg>
                         My Products
                     </a>
+                    {{ if or (eq .RequestURI "/products") (eq .RequestURI "/products/create") }}
+                        <ul class="sidebar__nested-ul">
+                            <li class="nav-item">
+                                <a class="nav-link {{ call .IsActive .RequestURI "/products/create" }}" aria-current="page" href="/products/create">Create</a>
+                            </li>
+                        </ul>
+                    {{ end }}
                 </li>
                 <li>
                     <a href="/insights" class="nav-link text-white {{ call .IsActive .RequestURI "/insights" }}">

@@ -9,20 +9,20 @@ import (
 	"net/http"
 )
 
-func UserRecipients(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
+func ProductsCreate(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 	var user models.User
 	templateData := make(gomek.Data)
 	userID := utils.BaseTemplateModel(r, &templateData)
 	result := utils.DB.First(&user, "id = ?", userID)
 	if result.RowsAffected == 0 {
 		log.Println("User not found")
-		http.Redirect(w, r, "/users", http.StatusNotFound)
+		http.Redirect(w, r, "/products", http.StatusNotFound)
 		return
 	}
 	userRole := models.GetUserRole(&user)
 	if userRole != "super" && userRole != "admin" {
 		log.Println("User does not have credentials")
-		http.Redirect(w, r, "/users", http.StatusForbidden)
+		http.Redirect(w, r, "/products", http.StatusForbidden)
 		return
 	}
 	if r.Method == "GET" {
@@ -31,11 +31,17 @@ func UserRecipients(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 		if orgRes.Error != nil {
 			log.Println("organisations not found")
 		}
+		var productTypes []models.ProductType
+		productTypesRes := utils.DB.Find(&productTypes)
+		if productTypesRes.Error != nil {
+			log.Println("products not found")
+		}
 		templateData["Organisations"] = organisations
+		templateData["ProductTypes"] = productTypes
 		*d = templateData
 	} else if r.Method == "POST" {
 		c := form_validator.Config{
-			MaxMemory: 0,
+			MaxMemory: 10000,
 			Fields: []form_validator.Field{
 				{
 					Name:     "organisation_id",
@@ -44,19 +50,25 @@ func UserRecipients(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 					Type:     "uint",
 				},
 				{
-					Name:     "fullname",
+					Name:     "product_name",
 					Validate: true,
 					Default:  "",
 					Type:     "string",
 				},
 				{
-					Name:     "email",
+					Name:     "product_type_id",
 					Validate: true,
 					Default:  "",
-					Type:     "string",
+					Type:     "uint",
 				},
 				{
-					Name:     "password",
+					Name:     "qr_key",
+					Validate: true,
+					Default:  "",
+					Type:     "uint",
+				},
+				{
+					Name:     "bar_code",
 					Validate: true,
 					Default:  "",
 					Type:     "string",
@@ -64,29 +76,30 @@ func UserRecipients(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 			},
 		}
 		if ok := form_validator.ValidateForm(r, &c); ok {
-			var role models.Role
-			models.GetRoleByName("recipient", &role)
-			userOrgID, _ := form_validator.GetUint("organisation_id", &c)
-			userFullname, _ := form_validator.GetString("fullname", &c)
-			userEmail, _ := form_validator.GetString("email", &c)
-			userPassword, _ := form_validator.GetString("password", &c)
-			newUser := models.User{
-				Email:          userEmail,
-				Password:       userPassword,
-				Fullname:       userFullname,
-				RoleID:         role.ID,
-				OrganizationID: userOrgID,
+
+			orgID, _ := form_validator.GetUint("organisation_id", &c)
+			productName, _ := form_validator.GetString("product_name", &c)
+			productTypeID, _ := form_validator.GetUint("product_type_id", &c)
+			QRKey, _ := form_validator.GetUint("qr_key", &c)
+			Barcode, _ := form_validator.GetString("bar_code", &c)
+
+			newProduct := models.Product{
+				Name:           productName,
+				ProductTypeID:  productTypeID,
+				OrganizationID: orgID,
+				QRKey:          QRKey,
+				Barcode:        Barcode,
 			}
-			userRes := utils.DB.Create(&newUser)
-			if userRes.Error != nil {
-				log.Println("couldnt save user")
+			productRes := utils.DB.Create(&newProduct)
+			if productRes.Error != nil {
+				log.Println("couldnt save product")
 			}
-			log.Println("Successfully created user")
-			http.Redirect(w, r, "/users", http.StatusSeeOther)
+			log.Println("Successfully created product")
 		} else {
 			log.Println("Error validating form values")
 			// return validation
 		}
+		http.Redirect(w, r, "/products", http.StatusSeeOther)
 	}
 
 }

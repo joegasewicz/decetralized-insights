@@ -57,7 +57,22 @@ func main() {
 			Name: "recipient",
 		},
 	}
-	utils.DB.Create(&roles)
+	rolesRes := utils.DB.Create(&roles)
+	if rolesRes.Error == nil {
+		log.Println("seeded roles")
+	}
+	productTypes := []models.ProductType{
+		{
+			Name: "simple",
+		},
+		{
+			Name: "complex",
+		},
+	}
+	productTypesRes := utils.DB.Create(&productTypes)
+	if productTypesRes.Error == nil {
+		log.Println("Seeded productTypes")
+	}
 	var superRole models.Role
 	models.GetRoleByName("super", &superRole)
 	superUsers := []models.User{
@@ -125,6 +140,11 @@ func main() {
 	// '/products' Routes
 	app.Route("/products").View(views.GetProducts).Methods("GET").Templates(
 		"./templates/routes/products.gohtml",
+	)
+
+	// '/products/create' Routes
+	app.Route("/products/create").View(views.ProductsCreate).Methods("GET", "POST").Templates(
+		"./templates/routes/products-create.gohtml",
 	)
 
 	// '/insights' Routes
