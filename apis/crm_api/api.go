@@ -35,7 +35,12 @@ func main() {
 	// Seed database
 	log.Println("Seeding database")
 	org := models.Organization{
-		Name: "dinsights",
+		Name:            "D-insights",
+		Branch:          "Global",
+		Sector:          "PR",
+		ContactEmail:    "admin@dinsights.tech",
+		ContactPhone:    "12345678334",
+		ContactFullname: "Haresh",
 	}
 	orgResult := utils.DB.Create(&org)
 	if orgResult.RowsAffected != 0 {
@@ -138,7 +143,7 @@ func main() {
 	)
 
 	// '/users/recipients' Routes
-	app.Route("/users/recipients").View(views.UserRecipients).Methods("GET").Templates(
+	app.Route("/users/recipients").View(views.UserRecipients).Methods("GET", "POST").Templates(
 		"./templates/routes/users-recipients.gohtml",
 	)
 
