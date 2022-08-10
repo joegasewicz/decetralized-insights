@@ -1,6 +1,40 @@
 {{ define "content" }}
     <div class="products">
-        <h1 class="text-center">Products</h1>
+        <div class="container">
+            <h1 class="text-center">Products</h1>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Organization</th>
+                            <th scope="col">QR Key</th>
+                            <th scope="col">Barcode</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{ range .Products }}
+                            <tr>
+                                <th scope="row">{{ .ID }}</th>
+                                <td>{{ .Name }}</td>
+                                <td>{{ .ProductType.Name }}</td>
+                                <td>{{ .Organization.Name }}</td>
+                                <td>{{ .QRKey }}</td>
+                                <td>{{ .Barcode }}</td>
+                            </tr>
+                        {{ end }}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+        </div>
+
     </div>
 
 {{ end }}

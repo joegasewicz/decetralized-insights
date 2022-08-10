@@ -12,9 +12,9 @@ type Role struct {
 	Users []User
 }
 
-func GetRoleByName(name string, role *Role) {
-	superResult := utils.DB.Where("name = ?", name).First(&role)
-	if superResult.RowsAffected == 0 {
+func GetRoleByName(name string, r *Role) {
+	res := utils.DB.Where("name = ?", name).First(&r)
+	if res.RowsAffected == 0 {
 		log.Fatalln("Couldn't fetch roles")
 	}
 }
