@@ -152,6 +152,11 @@ func main() {
 		"./templates/routes/insights.gohtml",
 	)
 
+	// '/insights/create' Routes
+	app.Route("/insights/create").View(views.InsightsCreate).Methods("GET", "POST").Templates(
+		"./templates/routes/insights-create.gohtml",
+	)
+
 	// '/users' Routes
 	app.Route("/users").View(views.GetUsers).Methods("GET").Templates(
 		"./templates/routes/users.gohtml",
