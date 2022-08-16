@@ -59,13 +59,21 @@ func InsightsCreate(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 		}
 		if ok := form_validator.ValidateForm(r, &c); ok {
 			orgID, _ := form_validator.GetUint("organisation_id", &c)
-			productName, _ := form_validator.GetString("product_id", &c)
+			productID, _ := form_validator.GetUint("product_id", &c)
 
 			// get product data
+			var organisation models.Organization
+			var product models.Product
 
 			// get organisation data
-
-			// get user data
+			res := utils.DB.Where("id = ?", orgID).First(&organisation)
+			if res.Error != nil {
+				log.Println("error fetching org", res.Error)
+			}
+			res = utils.DB.Where("id = ?", productID).First(&product)
+			if res.Error != nil {
+				log.Println("error fetching product", res.Error)
+			}
 
 			// make a request to journeys_api
 
@@ -73,7 +81,7 @@ func InsightsCreate(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 			log.Println("Error validating form values")
 			// return validation
 		}
-		http.Redirect(w, r, "/products", http.StatusSeeOther)
+		http.Redirect(w, r, "/insights", http.StatusSeeOther)
 	}
 
 }

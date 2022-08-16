@@ -30,7 +30,7 @@ export const postNewOrganisation = async (req: Request, res: Response, next: Nex
                 .deploy({ data: contract.bytecode, arguments: args })
                 .send({ gas: 3000000, from: accounts[0]});
             provider.engine.stop();
-
+            res.status(200)
             res.json({
                 data: {
                     address: result.options.address,
