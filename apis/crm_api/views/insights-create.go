@@ -31,13 +31,13 @@ func InsightsCreate(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 		if orgRes.Error != nil {
 			log.Println("organisations not found")
 		}
-		var productTypes []models.ProductType
-		productTypesRes := utils.DB.Find(&productTypes)
-		if productTypesRes.Error != nil {
+		var products []models.Product
+		productRes := utils.DB.Find(&products)
+		if productRes.Error != nil {
 			log.Println("products not found")
 		}
 		templateData["Organisations"] = organisations
-		templateData["ProductTypes"] = productTypes
+		templateData["Products"] = products
 		*d = templateData
 	} else if r.Method == "POST" {
 		c := form_validator.Config{
@@ -50,51 +50,25 @@ func InsightsCreate(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 					Type:     "uint",
 				},
 				{
-					Name:     "product_name",
-					Validate: true,
-					Default:  "",
-					Type:     "string",
-				},
-				{
-					Name:     "product_type_id",
+					Name:     "product_id",
 					Validate: true,
 					Default:  "",
 					Type:     "uint",
-				},
-				{
-					Name:     "qr_key",
-					Validate: true,
-					Default:  "",
-					Type:     "uint",
-				},
-				{
-					Name:     "bar_code",
-					Validate: true,
-					Default:  "",
-					Type:     "string",
 				},
 			},
 		}
 		if ok := form_validator.ValidateForm(r, &c); ok {
-
 			orgID, _ := form_validator.GetUint("organisation_id", &c)
-			productName, _ := form_validator.GetString("product_name", &c)
-			productTypeID, _ := form_validator.GetUint("product_type_id", &c)
-			QRKey, _ := form_validator.GetUint("qr_key", &c)
-			Barcode, _ := form_validator.GetString("bar_code", &c)
+			productName, _ := form_validator.GetString("product_id", &c)
 
-			newProduct := models.Product{
-				Name:           productName,
-				ProductTypeID:  productTypeID,
-				OrganizationID: orgID,
-				QRKey:          QRKey,
-				Barcode:        Barcode,
-			}
-			productRes := utils.DB.Create(&newProduct)
-			if productRes.Error != nil {
-				log.Println("couldnt save product")
-			}
-			log.Println("Successfully created product")
+			// get product data
+
+			// get organisation data
+
+			// get user data
+
+			// make a request to journeys_api
+
 		} else {
 			log.Println("Error validating form values")
 			// return validation

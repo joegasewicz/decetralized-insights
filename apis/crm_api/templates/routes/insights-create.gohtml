@@ -3,46 +3,42 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <div class="di-form">
-                    <div class="card text-bg-secondary mb-3">
-                        <div class="card-header">
-                            <h2 class=" text-center">Create Insight</h2>
-                        </div>
-                        <div class="card-body">
-                            <form action="/insights/create" method="POST">
-                                <div class="mb-3">
-                                    <label class="form-label">Organisation</label>
-                                    <select class="form-select" name="organisation_id">
-                                        {{ range .Organisations }}
-                                            <option value="{{ .ID }}">{{ .Name }}</option>
-                                        {{ end }}
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" name="product_name" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Type</label>
-                                    <select class="form-select" name="product_type_id">
-                                        {{ range .ProductTypes }}
-                                            <option value="{{ .ID }}">{{ .Name }}</option>
-                                        {{ end }}
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">QR Key</label>
-                                    <input type="text" name="qr_key" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Barcode No.</label>
-                                    <input type="text" name="bar_code" class="form-control">
-                                </div>
-                                <button type="submit" class="btn btn btn-outline-info btn-lg">Create</button>
-                            </form>
+                {{ if .Products }}
+                    <div class="di-form">
+                        <div class="card text-bg-secondary mb-3">
+                            <div class="card-header">
+                                <h2 class=" text-center">Create Insight</h2>
+                            </div>
+                            <div class="card-body">
+                                <form action="/insights/create" method="POST">
+                                    <div class="mb-3">
+                                        <label class="form-label">Organisation</label>
+                                        <select class="form-select" name="organisation_id">
+                                            {{ range .Organisations }}
+                                                <option value="{{ .ID }}">{{ .Name }}</option>
+                                            {{ end }}
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Products</label>
+                                        <select class="form-select" name="product_id">
+                                            {{ range .Products }}
+                                                <option value="{{ .ID }}">{{ .Name }}</option>
+                                            {{ end }}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn btn-outline-info btn-lg">Create</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                {{  else }}
+                    <div class="product-danger alert alert-info" role="alert">
+                        Please <a href="/products/create">create</a>  a product first.
+                    </div>
+                {{ end }}
+
             </div>
             <div class="col-md-3"></div>
         </div>
