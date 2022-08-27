@@ -14,6 +14,7 @@
                     <th scope="col">Sector</th>
                     <th scope="col">Contact</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Contract REF</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,6 +26,7 @@
                         <td>{{ .Sector }}</td>
                         <td>{{ .ContactFullname }}</td>
                         <td>{{ .ContactEmail }}</td>
+                        <td>{{ .ContractAddr }}</td>
                     </tr>
                 {{ end }}
                 </tbody>
