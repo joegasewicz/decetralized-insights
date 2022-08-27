@@ -19,6 +19,7 @@ type Organization struct {
 	SortCode        string
 	AccountNo       uint
 	Comments        string
+	ContractAddr    string
 	Users           []User
 	Products        []Product
 }

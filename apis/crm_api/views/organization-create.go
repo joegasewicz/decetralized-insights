@@ -139,7 +139,9 @@ func OrganizationCreate(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 			err = json.Unmarshal(postBody, &orgContract)
 
 			log.Println("New contract created: ", orgContract.Data.Address)
-
+			// Update the org table with the contract address
+			orgModel.ContractAddr = orgContract.Data.Address
+			utils.DB.Save(&orgModel)
 			if resp.StatusCode != 200 {
 				log.Println("organisation smart contract failure", err.Error())
 			}
