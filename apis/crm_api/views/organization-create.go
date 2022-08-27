@@ -1,10 +1,14 @@
 package views
 
 import (
+	"bytes"
+	"encoding/json"
 	"github.com/joegasewicz/decetralized-insights/crm_api/models"
+	"github.com/joegasewicz/decetralized-insights/crm_api/schemas"
 	"github.com/joegasewicz/decetralized-insights/crm_api/utils"
 	form_validator "github.com/joegasewicz/form-validator"
 	"github.com/joegasewicz/gomek"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -111,6 +115,33 @@ func OrganizationCreate(w http.ResponseWriter, r *http.Request, d *gomek.Data) {
 			if result.RowsAffected == 0 {
 				log.Println("No entrees created")
 				return
+			}
+			// get accounts
+			accountResp, err := http.Get("http://localhost:4000/accounts")
+			body, err := ioutil.ReadAll(accountResp.Body)
+			var accountData schemas.AccountData
+			err = json.Unmarshal(body, &accountData)
+			// Marshal org to JSON
+			newOrg := schemas.Organisation{
+				OrgID:         orgModel.ID,
+				OrgName:       orgModel.Name,
+				RecipientAddr: accountData.Data.Accounts[1],
+			}
+			b, err := json.Marshal(&newOrg)
+			if err != nil {
+				log.Println("error marshalling json", err)
+				return
+			}
+			// Create organization entry on blockchain
+			resp, err := http.Post("http://localhost:4000/organisation", "application/json", bytes.NewBuffer(b))
+			postBody, err := ioutil.ReadAll(resp.Body)
+			var orgContract schemas.OrgRespContact
+			err = json.Unmarshal(postBody, &orgContract)
+
+			log.Println("New contract created: ", orgContract.Data.Address)
+
+			if resp.StatusCode != 200 {
+				log.Println("organisation smart contract failure", err.Error())
 			}
 		} else {
 			// TODO return validation errors

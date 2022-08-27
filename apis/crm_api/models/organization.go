@@ -2,6 +2,11 @@ package models
 
 import "gorm.io/gorm"
 
+type Sector struct {
+	gorm.Model
+	Name string `gorm:"unique"`
+}
+
 type Organization struct {
 	gorm.Model
 	Name            string `gorm:"unique"`
