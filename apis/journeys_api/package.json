@@ -7,7 +7,6 @@
     "test": "test"
   },
   "scripts": {
-    "compile": "node compile.js",
     "webpack": "webpack",
     "test:contracts": "mocha",
     "build:dev": "NODE_ENV=development webpack watch",
